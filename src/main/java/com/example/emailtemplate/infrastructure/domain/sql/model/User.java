@@ -1,9 +1,6 @@
 package com.example.emailtemplate.infrastructure.domain.sql.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Table(name = "Users")
 public class User {
 
     @Id
@@ -19,6 +17,8 @@ public class User {
     private Long id;
 
     private String name;
+
+    private String email;
 
     public Long getId() {
         return id;
@@ -44,7 +44,7 @@ public class User {
         this.email = email;
     }
 
-    private String email;
+
 
 
 }

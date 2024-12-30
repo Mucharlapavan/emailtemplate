@@ -22,11 +22,12 @@ public class EmailService {
         helper.setTo(to);
         helper.setSubject(subject);
 
-        // Template content (this could be dynamic if you want)
-        String template = "<html><body><h1>Welcome to our service!</h1><p>Thank you for registering with us.</p></body></html>"; // example template
+        // Example dynamic template
+        String template = "<html><body><h1>Welcome, %s!</h1><p>Thank you for registering with us.</p></body></html>";
+        String emailContent = String.format(template, to);  // You can customize the content as needed
 
         // Set the email content to the template
-        helper.setText(template, true);
+        helper.setText(emailContent, true);
 
         // Send the email
         mailSender.send(message);

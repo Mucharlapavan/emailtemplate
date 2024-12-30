@@ -14,7 +14,6 @@ public class UserController {
 
     @PostMapping("/register")
     public User registerUser(@RequestBody User user) {
-        // Register the user, save them to the database, and send email
         return userService.registerUser(user);
     }
 }

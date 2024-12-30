@@ -22,8 +22,11 @@ public class UserService {
         // After saving the user, send an email to the user
         try {
             emailService.sendEmailWithTemplate(savedUser.getEmail(), "Welcome to Our Service");
+            // Optionally, log success here
+            System.out.println("Email sent to " + savedUser.getEmail());
         } catch (MessagingException e) {
             e.printStackTrace();
+            // Handle the exception properly, maybe throw a custom exception if email sending fails
         }
 
         return savedUser;
