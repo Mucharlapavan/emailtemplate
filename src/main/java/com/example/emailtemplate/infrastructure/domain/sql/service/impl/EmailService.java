@@ -1,11 +1,16 @@
 package com.example.emailtemplate.infrastructure.domain.sql.service.impl;
 
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
+
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
+
+import java.util.Map;
 
 @Service
 public class EmailService {
@@ -13,20 +18,22 @@ public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
 
-    public void sendEmailWithTemplate(String to, String subject) throws MessagingException {
-        // Create the MIME message
+    @Autowired
+    private EmailTemplateService emailTemplateService;
+
+    public void sendFestivalEmail(String to, String subject, String templateName, Map<String, Object> variables) throws MessagingException {
+        // Create MIME message
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        // Set the recipient, subject, etc.
+        // Set recipient and subject
         helper.setTo(to);
         helper.setSubject(subject);
 
-        // Example dynamic template
-        String template = "<html><body><h1>Welcome, %s!</h1><p>Thank you for registering with us.</p></body></html>";
-        String emailContent = String.format(template, to);  // You can customize the content as needed
+        // Generate email content using the template
+        String emailContent = emailTemplateService.getTemplateContent(templateName, variables);
 
-        // Set the email content to the template
+        // Set the email content
         helper.setText(emailContent, true);
 
         // Send the email
