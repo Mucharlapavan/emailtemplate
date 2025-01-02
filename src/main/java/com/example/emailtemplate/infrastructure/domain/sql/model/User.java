@@ -2,6 +2,7 @@ package com.example.emailtemplate.infrastructure.domain.sql.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+
 @Table(name = "Users")
 public class User {
 
@@ -17,6 +19,7 @@ public class User {
     private Long id;
 
     private String name;
+
 
     private String email;
 
